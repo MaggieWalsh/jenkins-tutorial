@@ -1,8 +1,5 @@
 pipeline{
         agent any
-        environment {
-            DB_PASSWORD = "123vgrfds"
-        }
         stages{
             stage('Clone Repo'){
                 steps{
@@ -25,6 +22,7 @@ pipeline{
             stage('Deploy'){
                 steps{
                     sh "sudo docker-compose pull && sudo -E DB_PASSWORD=${DB_PASSWORD} docker-compose up -d"
+                    sh "export DB_PASSWORD = 123vgrfds"
                 }
             }
         }
