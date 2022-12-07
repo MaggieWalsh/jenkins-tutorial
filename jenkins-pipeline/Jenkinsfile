@@ -4,7 +4,6 @@ pipeline{
             stage('Clone Repo'){
                 steps{
                     sh "git clone https://gitlab.com/qacdevops/chaperootodo_client.git"
-                    sh "sudo useradd -m -s /bin/bash jenkins"
                 }
             }
             stage('Install Docker & Docker Compose'){
