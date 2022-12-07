@@ -1,5 +1,8 @@
 pipeline{
         agent any
+        environment {
+            DB_PASSWORD="1234dfghj"
+        }
         stages{
             stage('Clone Repo'){
                 steps{
@@ -22,7 +25,6 @@ pipeline{
             stage('Deploy'){
                 steps{
                     sh 'sudo docker-compose -f chaperootodo_client/docker-compose.yaml pull && sudo -E DB_PASSWORD=${DB_PASSWORD} docker-compose -f chaperootodo_client/docker-compose.yaml up -d'
-                    sh "export DB_PASSWORD = 123vgrfds"
                 }
             }
         }
