@@ -7,6 +7,7 @@ pipeline{
             stage('Clone Repo'){
                 steps{
                     git 'https://gitlab.com/qacdevops/chaperootodo_client.git'
+                    echo 'Repo succesfully cloned'
                 }
             }
             stage('Install Docker & Docker Compose'){
@@ -21,11 +22,13 @@ pipeline{
                     sudo curl -L "https://github.com/docker/compose/releases/download/v2.14.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                     sudo chmod +x /usr/local/bin/docker-compose
                     '''
+                    echo 'Docker & Docker Compose succesfully installed'
                 }
             }
             stage('Deploy'){
                 steps{
                     sh 'sudo docker-compose pull && sudo -E DB_PASSWORD=${DB_PASSWORD} docker-compose up -d'
+                    echo 'Deployment successful'
                 }
             }
         }
