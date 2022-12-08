@@ -1,8 +1,8 @@
 pipeline{
         agent any
-        environment {
-            DB_PASSWORD="1234dfghj"
-        }
+        // environment {
+        //     DB_PASSWORD="1234dfghj"
+        // }
         stages{
             stage('Clone Repo'){
                 steps{
@@ -27,7 +27,9 @@ pipeline{
             }
             stage('Deploy'){
                 steps{
-                    sh 'sudo docker-compose pull && sudo -E DB_PASSWORD=${DB_PASSWORD} docker-compose up -d'
+                    withCredentials([string(credentialsId: 'DB_PASSWORD', variable: 'DB_PASSWORD')]) {
+                        sh 'sudo docker-compose pull && sudo -E DB_PASSWORD=${DB_PASSWORD} docker-compose up -d'
+                        }
                     echo 'Deployment successful'
                 }
             }
